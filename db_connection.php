@@ -8,11 +8,13 @@ if ($db) {
     echo "Connection failed" . $e->getMessage();
 }
 
-/*
-createtable
-$db->exec("CREATE TABLE user (
-id INTEGER PRIMARY KEY AUTOINCREMENT,
-์name TEXT NOT NULL)");*/
+
+$db->exec("CREATE TABLE document (
+reciveId INTEGER PRIMARY KEY AUTOINCREMENT,
+์id TEXT NOT NULL,
+sender TEXT NOT NULL,
+dateadded datetime NOT NULL,
+detail TEXT NOT NULL)");
 
 /*
 $name = "Anan1";
