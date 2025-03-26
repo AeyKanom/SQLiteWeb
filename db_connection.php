@@ -8,13 +8,13 @@ if ($db) {
     echo "Connection failed" . $e->getMessage();
 }
 
-
 $db->exec("CREATE TABLE document (
-reciveId INTEGER PRIMARY KEY AUTOINCREMENT,
-์id TEXT NOT NULL,
-sender TEXT NOT NULL,
-dateadded datetime NOT NULL,
-detail TEXT NOT NULL)");
+    reciveId INTEGER PRIMARY KEY AUTOINCREMENT,
+    id TEXT NOT NULL,
+    sender TEXT NOT NULL,
+    dateadded datetime NOT NULL,
+    detail TEXT NOT NULL)");
+echo "Table document is create.";
 
 /*
 $name = "Anan1";

@@ -43,6 +43,7 @@ require('db_connection.php');
                             <td><?php echo $row['name'] ?></td>
                             <td>
                                 <button type="submit">Edit</button>
+                                <button disabled="disabled">DEL</button>
                             </td>
                         </tr>
                     <?php endwhile ?>
