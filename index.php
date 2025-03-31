@@ -5,7 +5,9 @@ require('db_connection.php');
 <html lang="en">
 
 <head>
-    <title>Title</title>
+    <title>
+        <p>โปรแกรมจัดการเอกสาร</p>
+    </title>
     <!-- Required meta tags -->
     <meta charset="utf-8" />
     <meta

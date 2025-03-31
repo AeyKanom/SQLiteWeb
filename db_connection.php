@@ -3,18 +3,54 @@ $db = new PDO('sqlite:database.sqlite');
 $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 if ($db) {
-    echo "Connected<br>";
+    echo "Database is connected.<br>";
+    $crate_stmt  = $db->prepare("CREATE TABLE sqlite_sequence(name,seq)");
+    $crate_stmt->execute();
 } else {
-    echo "Connection failed" . $e->getMessage();
+    echo "Database connection failed.<br>" . $e->getMessage();
 }
+$name = "document";
+$select_stmt = $db->prepare("SELECT name FROM sqlite_sequence WHERE name=:tb_name");
+$select_stmt->bindParam(':tb_name', $name);
+$select_stmt->execute();
+$tb_check = $select_stmt->fetch(PDO::FETCH_ASSOC);
+print_r("tb_name = " . $tb_check['name'] . "<br>");
 
-$db->exec("CREATE TABLE document (
+if (!$tb_check) {
+
+    $crate_stmt  = $db->prepare("CREATE TABLE document (
+        reciveId INTEGER,
+        Id TEXT NOT NULL,
+        sender TEXT NOT NULL,
+        reciveDate TEXT NOT NULL,
+        detail TEXT NOT NULL,
+        PRIMARY KEY(reciveId AUTOINCREMENT)
+    )");
+
+    $crate_stmt->execute();
+
+
+    /*
+    $id = "a1";
+    $sender = "Admin";
+    $dete = "2586-03-31";
+    $detail = "Test table.";
+    $insert_stmt = $db->prepare("INSERT INTO document (name)
+    VALUES(:name1)");
+    $insert_stmt->bindParam(':name1', $name);
+    $insert_stmt->execute();*/
+
+    print_r("Create table doucument is successfully.");
+} else {
+    print_r("Table doucument is ready.");
+}
+/*$db->exec("CREATE TABLE document (
     reciveId INTEGER PRIMARY KEY AUTOINCREMENT,
     id TEXT NOT NULL,
     sender TEXT NOT NULL,
     dateadded datetime NOT NULL,
     detail TEXT NOT NULL)");
-echo "Table document is create.";
+echo "Table document is create.";*/
 
 /*
 $name = "Anan1";
@@ -50,5 +86,4 @@ echo "name=>" . $row['name'];
 $rows = $select_stmt->fetchAll(PDO::FETCH_ASSOC);
 foreach ($rows as $row) {
     echo "Username => " . $row['name'] . "<br>";
-}
-*/
+}*/
