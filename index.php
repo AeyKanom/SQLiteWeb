@@ -38,11 +38,15 @@ require('db_connection.php');
                         <th>Action</th>
                     </tr>
                     <?php
-                    $select_stmt = $db->query("SELECT * FROM user");
+                    $select_stmt = $db->query("SELECT * FROM document");
                     $select_stmt->execute();
                     while ($row = $select_stmt->fetch(PDO::FETCH_ASSOC)): ?>
                         <tr>
-                            <td><?php echo $row['name'] ?></td>
+                            <td><?php echo $row['reciveId'] ?></td>
+                            <td><?php echo $row['Id'] ?></td>
+                            <td><?php echo $row['sender'] ?></td>
+                            <td><?php echo $row['reciveDate'] ?></td>
+                            <td><?php echo $row['detail'] ?></td>
                             <td>
                                 <button type="submit">Edit</button>
                                 <button disabled="disabled">DEL</button>
