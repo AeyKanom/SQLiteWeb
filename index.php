@@ -1,12 +1,21 @@
 <?php
 require('db_connection.php');
+
+if (isset($_GET['Id'])) {
+    $id = $_GET['Id'];
+    $delete_stmt = $db->prepare("DELETE FROM document WHERE Id=:id");
+    $delete_stmt->bindParam(':id', $id);
+    $delete_stmt->execute();
+    header('refresh:1;url=index.php');
+}
+
 ?>
 <!doctype html>
 <html lang="en">
 
 <head>
     <title>
-        <p>โปรแกรมจัดการเอกสาร</p>
+        โปรแกรมจัดการเอกสาร
     </title>
     <!-- Required meta tags -->
     <meta charset="utf-8" />
@@ -20,8 +29,24 @@ require('db_connection.php');
         rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
         crossorigin="anonymous" />
+    <style>
+        body {
+            font-family: THSarabunPSK;
+            justify-content: center;
+            text-align: center;
+        }
 
-    <link rel="stylesheet" href="style.css">
+        #lb_1 {
+            font-family: THSarabunPSK;
+            margin-top: 1rem;
+        }
+
+        .action_bar {
+            display: flex;
+            justify-content: end;
+            margin-right: 5rem;
+        }
+    </style>
 </head>
 
 <body>
@@ -31,11 +56,24 @@ require('db_connection.php');
     <main>
         <div class="container">
             <div class="container">
-                <h1>Document</h1>
+                <h1 id="lb_1">ทะเบียนหนังสือรับ ( ประเภททั่วไป )</h1>
+                <div class="action_bar">
+                    <a
+                        name=""
+                        id=""
+                        class="btn btn-primary"
+                        href="add_doc.php"
+                        role="button">เพิ่ม</a>
+                </div>
+
                 <table class="table">
                     <tr>
-                        <th>Name</th>
-                        <th>Action</th>
+                        <th>เลขทะเบียนรับ</th>
+                        <th>ที่เอกสาร</th>
+                        <th>ผู้ส่ง</th>
+                        <th>วันที่รับ</th>
+                        <th>รายละเอียด</th>
+                        <th>กิจกรรม</th>
                     </tr>
                     <?php
                     $select_stmt = $db->query("SELECT * FROM document");
@@ -48,8 +86,20 @@ require('db_connection.php');
                             <td><?php echo $row['reciveDate'] ?></td>
                             <td><?php echo $row['detail'] ?></td>
                             <td>
-                                <button type="submit">Edit</button>
-                                <button disabled="disabled">DEL</button>
+                                <button
+                                    type="button"
+                                    class="btn btn-warning"
+                                    style="background-color: yellow;border-color: #fff;color: black;">
+                                    แก้ไข
+                                </button>
+
+                                <a
+                                    name=""
+                                    id=""
+                                    class="btn btn-danger"
+                                    href="index.php?Id=<?php echo $row['Id'] ?>"
+                                    role="button">ลบ</a>
+
                             </td>
                         </tr>
                     <?php endwhile ?>
